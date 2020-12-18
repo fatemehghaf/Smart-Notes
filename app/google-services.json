@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "135113058195",
+    "project_id": "smartnotes02",
+    "storage_bucket": "smartnotes02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135113058195:android:1aed6b4b066ab5aba8ea66",
+        "android_client_info": {
+          "package_name": "com.example.smartnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135113058195-5qotmbdp75b018u9cdipikbkuslq313c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAygY1eRdZuqyohfr616m-clTvSI0A3e7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135113058195-5qotmbdp75b018u9cdipikbkuslq313c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
