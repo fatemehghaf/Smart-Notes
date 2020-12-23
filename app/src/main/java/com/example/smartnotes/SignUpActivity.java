@@ -31,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText userID;
     EditText Email;
     EditText Pass;
-    Button SubmitSignin;
+    Button SubmitSignup;
     TextView jumpLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class SignUpActivity extends AppCompatActivity {
         userID=findViewById(R.id.editTxtId);
         Email=findViewById(R.id.editTxtEmail);
         Pass=findViewById(R.id.editTxtPass);
-        SubmitSignin=findViewById(R.id.submitBtn);
-        jumpLogin=findViewById(R.id.loginBtn);
+        SubmitSignup=findViewById(R.id.signupBtn);
+        jumpLogin=findViewById(R.id.tViewlogin);
 
         databaseRef= FirebaseDatabase.getInstance().getReference();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -51,11 +51,12 @@ public class SignUpActivity extends AppCompatActivity {
         jumpLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SignUpActivity.this,LoginActivity.class);
+                Intent intent=new Intent(SignUpActivity.this,com.example.smartnotes.LoginActivity.class);
+                startActivity(intent);
             }
         });
 
-        SubmitSignin.setOnClickListener(new View.OnClickListener() {
+        SubmitSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String stID=userID.getText().toString();
@@ -67,11 +68,11 @@ public class SignUpActivity extends AppCompatActivity {
                 else if (stPass.length()>8){
                     Toast.makeText(SignUpActivity.this,"The Password must be at least 8 Characters!",Toast.LENGTH_LONG).show();
                 }
-                else Register(stID,stEmail,stPass);
+                else SigningUp(stID,stEmail,stPass);
             }
         });
     }
-    public void Register(final String ID, final String Email, final String Pass){
+    public void SigningUp(final String ID, final String Email, final String Pass){
     firebaseAuth.createUserWithEmailAndPassword(Email,Pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
         @Override
         public void onSuccess(AuthResult authResult) {
@@ -84,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()){
                         progressDialog.dismiss();
-                        Toast.makeText(SignUpActivity.this,"Successfuly Registered",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUpActivity.this,"Successfuly Registered. Wellcome!",Toast.LENGTH_LONG).show();
                         Intent intent2=new Intent(SignUpActivity.this,HomeActivity.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
@@ -92,7 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
             });
-
 
         }
     });

@@ -5,10 +5,13 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorKhaki">#f6f0bc</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorWhiteSmoke">#FDFDFD</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGrayDark">#404040</color>
     <color name="colorGrayLight">#b3b3b3</color>
+    <color name="colorBlueMain">#66ccff</color>
     <color name="colorBlueLight">#b3e6ff</color>
     <color name="colorBlueLighter">#e6f7ff</color>
     <color name="colorBlueDark">#004666</color>
+    <color name="colorBlueDarker">#00344d</color>
 </resources>

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     EditText loginEmail;
     EditText loginPass;
+    TextView jumpSignUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn=findViewById(R.id.loginBtn);
         loginEmail=findViewById(R.id.editTxtEmail2);
         loginPass=findViewById(R.id.editTxtPass2);
+        jumpSignUp=findViewById(R.id.tViewJumpSignUp);
 
         firebaseAuth2=FirebaseAuth.getInstance();
 
@@ -43,6 +46,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                     LoggingIn(stLoginEmail,stLoginPass);
+            }
+        });
+        jumpSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2=new Intent(LoginActivity.this,com.example.smartnotes.SignUpActivity.class);
+                startActivity(intent2);
             }
         });
 

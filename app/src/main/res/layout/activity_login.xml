@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/colorWhiteSmoke"
     tools:context=".LoginActivity">
+
 
     <Button
         android:id="@+id/loginBtn"
@@ -13,59 +14,50 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="358dp"
-        android:layout_marginEnd="102dp"
+        android:layout_marginTop="361dp"
+        android:layout_marginEnd="98dp"
         android:background="@drawable/button_background"
+        android:fontFamily="sans-serif"
         android:text="Log In"
         android:textColor="@color/colorWhite" />
 
-    <TextView
-        android:id="@+id/tView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="209dp"
-        android:layout_marginEnd="311dp"
-        android:text="Email"
-        android:textColor="@color/colorBlueDark" />
-
-    <TextView
-        android:id="@+id/tView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="271dp"
-        android:layout_marginEnd="297dp"
-        android:text="Password"
-        android:textColor="@color/colorBlueDark" />
-
     <EditText
         android:id="@+id/editTxtEmail2"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_width="288dp"
+        android:layout_height="42dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="199dp"
-        android:layout_marginEnd="77dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_email_"
+        android:drawablePadding="10dp"
         android:ems="10"
-        android:hint=" example@mail.com"
-        android:textColorHint="@color/colorGrayLight"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:textColor="@color/colorBlack"
-        android:inputType="textEmailAddress" />
+        android:textColorHint="@color/colorGrayLight" />
 
     <EditText
         android:id="@+id/editTxtPass2"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_width="288dp"
+        android:layout_height="42dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="262dp"
-        android:layout_marginEnd="77dp"
+        android:layout_marginEnd="60dp"
+        android:drawableStart="@drawable/ic_lock"
         android:ems="10"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:background="@drawable/custom_input"
+        android:hint="Password"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
         android:textColor="@color/colorBlack"
-        android:inputType="textPassword" />
+        android:textColorHint="@color/colorGrayLight" />
 
     <TextView
         android:id="@+id/textView6"
@@ -76,5 +68,18 @@
         android:layout_marginTop="134dp"
         android:layout_marginEnd="108dp"
         android:text="Enter Your Email and Password :"
-        android:textColor="@color/colorBlueDark" />
+        android:textColor="@color/colorBlueDark"
+        />
+
+    <TextView
+        android:id="@+id/tViewJumpSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="135dp"
+        android:layout_marginBottom="263dp"
+        android:fontFamily="sans-serif"
+        android:text="Create a New Account"
+        android:textColor="@color/colorGrayDark" />
 </RelativeLayout>

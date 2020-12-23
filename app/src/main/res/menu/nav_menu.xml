@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:title="General">
+    <menu>
+        <item
+            android:id="@+id/mNotes"
+            android:icon="@drawable/ic_note"
+            android:title="Notes" />
+        <item
+            android:id="@+id/mAddNotes"
+            android:icon="@drawable/ic_add_circle"
+            android:title="Add Note" />
+        <item
+            android:id="@+id/mSync"
+            android:icon="@drawable/ic_sync"
+            android:title="Sync Notes"
+            />
+
+    </menu>
+</item>
+    <item android:title="Log Out">
+        <menu>
+            <item
+                android:id="@+id/mLogOut"
+                android:icon="@drawable/ic_key"
+                android:title="Log Out" />
+        </menu>
+    </item>
+</menu>
