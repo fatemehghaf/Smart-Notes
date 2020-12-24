@@ -9,13 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -64,12 +67,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         noteLists.setAdapter(adapter);
 
 
-
+        FloatingActionButton fab = findViewById(R.id.AddNoteFlBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,AddNoteActivity.class));
+            }
+        });
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.mAddNotes:
+                startActivity(new Intent(HomeActivity.this,AddNoteActivity.class));
+                break;
             default:
                 Toast.makeText(this,"Coming Soon...",Toast.LENGTH_SHORT).show();
 

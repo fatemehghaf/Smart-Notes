@@ -1,5 +1,6 @@
 package com.example.smartnotes;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +31,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, final int position) {
         holder.noteTitle.setText(titleList.get(position));
         holder.noteContent.setText(contentList.get(position));
         holder.view2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Item is Clicked",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(v.getContext(),noteDetailsActivity.class);
+                intent.putExtra("Title",titleList.get(position));
+                intent.putExtra("Content",contentList.get(position));
+                v.getContext().startActivity(intent);
             }
         });
     }
