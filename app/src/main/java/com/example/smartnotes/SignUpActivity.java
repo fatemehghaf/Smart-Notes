@@ -31,6 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText userID;
     EditText Email;
     EditText Pass;
+    EditText rePass;
     Button SubmitSignup;
     TextView jumpLogin;
     @Override
@@ -41,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         userID=findViewById(R.id.editTxtId);
         Email=findViewById(R.id.editTxtEmail);
         Pass=findViewById(R.id.editTxtPass);
+        rePass=findViewById(R.id.editTxtRePass);
         SubmitSignup=findViewById(R.id.signupBtn);
         jumpLogin=findViewById(R.id.tViewlogin);
 
@@ -62,12 +64,16 @@ public class SignUpActivity extends AppCompatActivity {
                 String stID=userID.getText().toString();
                 String stEmail=Email.getText().toString();
                 String stPass=Pass.getText().toString();
-                if (TextUtils.isEmpty(stID)||TextUtils.isEmpty(stEmail)||TextUtils.isEmpty(stPass)){
+                String stRePass=rePass.getText().toString();
+                if (TextUtils.isEmpty(stID)||TextUtils.isEmpty(stEmail)||TextUtils.isEmpty(stPass)||TextUtils.isEmpty(stRePass)){
                     Toast.makeText(SignUpActivity.this,"Fill all fields!",Toast.LENGTH_LONG).show();
                 }
                 else if (stPass.length()>8){
                     Toast.makeText(SignUpActivity.this,"The Password must be at least 8 Characters!",Toast.LENGTH_LONG).show();
                 }
+                /*else if(stPass!=stRePass){
+                    Toast.makeText(SignUpActivity.this,"The Confirm Password is not same as Password",Toast.LENGTH_LONG).show();
+                }*/
                 else SigningUp(stID,stEmail,stPass);
             }
         });
@@ -76,19 +82,19 @@ public class SignUpActivity extends AppCompatActivity {
     firebaseAuth.createUserWithEmailAndPassword(Email,Pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
         @Override
         public void onSuccess(AuthResult authResult) {
-            HashMap<String,Object>data=new HashMap<>();
+            HashMap<String, Object> data = new HashMap<>();
             data.put("Username",ID);
-            data.put("Username",Email);
-            data.put("Username",Pass);
-            databaseRef.child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            data.put("User Email",Email);
+            data.put("User Pass",Pass);
+            databaseRef.child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>(){
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         progressDialog.dismiss();
-                        Toast.makeText(SignUpActivity.this,"Successfuly Registered. Wellcome!",Toast.LENGTH_LONG).show();
-                        Intent intent2=new Intent(SignUpActivity.this,HomeActivity.class);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent2);
+                        Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         finish();
                     }
                 }

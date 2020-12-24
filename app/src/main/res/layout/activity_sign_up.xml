@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="410dp"
-        android:layout_marginEnd="109dp"
+        android:layout_marginTop="428dp"
+        android:layout_marginEnd="112dp"
         android:background="@drawable/button_background"
+        android:fontFamily="sans-serif"
         android:text="Sign Up"
-        android:textColor="@color/colorWhite"
-        android:fontFamily="sans-serif"/>
+        android:textColor="@color/colorWhite" />
 
     <EditText
         android:id="@+id/editTxtEmail"
@@ -61,6 +61,26 @@
         tools:ignore="DuplicateIds" />
 
     <EditText
+        android:id="@+id/editTxtRePass"
+        android:layout_width="288dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="354dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGrayLight"
+        tools:ignore="DuplicateIds" />
+
+    <EditText
         android:id="@+id/editTxtId"
         android:layout_height="42dp"
         android:layout_width="288dp"
@@ -85,8 +105,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="212dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="198dp"
         android:fontFamily="sans-serif"
         android:text="Already Have An Account?"
         android:textColor="@color/colorGrayDark" />
