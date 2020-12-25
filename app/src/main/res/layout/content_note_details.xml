@@ -17,15 +17,26 @@
         android:hint="Title"
         android:padding="8dp"
         android:textColorHint="@color/colorGray"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+    <TextView
+        android:id="@+id/tVNoteDetailDate"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="44dp"
+        android:hint="Date"
+        android:padding="7dp"
+        android:textColorHint="@color/colorGray"
+        android:textSize="11dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/tVNoteDetailContent"
         android:layout_width="match_parent"
-        android:layout_height="634dp"
+        android:layout_height="596dp"
         android:hint="Notes"
         android:isScrollContainer="true"
         android:padding="8dp"

@@ -18,7 +18,6 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
     List<String>titleList;
     List<String>contentList;
-
     public  Adapter(List<String> titleList,List<String>contentList){
         this.titleList=titleList;
         this.contentList=contentList;

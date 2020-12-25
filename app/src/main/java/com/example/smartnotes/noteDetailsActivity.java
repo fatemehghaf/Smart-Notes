@@ -18,6 +18,7 @@ import android.widget.TextView;
 public class noteDetailsActivity extends AppCompatActivity {
     TextView tVContent;
     TextView tVTitle;
+    TextView tVDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +31,13 @@ public class noteDetailsActivity extends AppCompatActivity {
 
         tVContent=findViewById(R.id.tVNoteDetailContent);
         tVTitle=findViewById(R.id.tVNoteDetailTitle);
+        tVDate=findViewById(R.id.tVNoteDetailDate);
         tVContent.setMovementMethod(new ScrollingMovementMethod());
+
 
         tVContent.setText(data.getStringExtra("Content"));
         tVTitle.setText(data.getStringExtra("Title"));
+        tVDate.setText(data.getStringExtra("Date"));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

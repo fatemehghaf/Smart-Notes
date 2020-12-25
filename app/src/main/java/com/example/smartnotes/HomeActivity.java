@@ -11,15 +11,22 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +38,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView noteLists;
     //
     Adapter adapter;
+    FirebaseFirestore firestore;
+    FirestoreRecyclerAdapter<Note,NoteViewHolder>noteAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,24 +56,38 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
 
+        firestore=FirebaseFirestore.getInstance();
 
+        Query query=firestore.collection("Notes").orderBy("Date",Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Note> allNotes=new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query,Note.class).build();
 
-        List<String> titles=new ArrayList<>();
-        List<String> content=new ArrayList<>();
-        titles.add("First Title");
-        content.add("First Content");
+        noteAdapter=new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
+            @Override
+            protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull final Note model) {
+                holder.noteTitle.setText(model.getTitle());
+                holder.noteContent.setText(model.getContent());
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), noteDetailsActivity.class);
+                        intent.putExtra("Title", model.getTitle());
+                        intent.putExtra("Content", model.getContent());
+                        intent.putExtra("Date",model.getDate());
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
+            @NonNull
+            @Override
+            public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_view_layout,parent,false);
+                return new NoteViewHolder(view);
+            }
+        };
 
-        titles.add("2d Title");
-        content.add("2d Content");
-
-        titles.add("3th Title");
-        content.add("3th Content3th Content3th Content3th Content3th Content3th Content3th Content");
-
-        titles.add("4th Title");
-        content.add("4th Content");
-        adapter=new Adapter(titles,content);
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        noteLists.setAdapter(adapter);
+        noteLists.setAdapter(noteAdapter);
 
 
         FloatingActionButton fab = findViewById(R.id.AddNoteFlBtn);
@@ -102,6 +125,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this,"Coming Soon...",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+    public class NoteViewHolder extends RecyclerView.ViewHolder{
+        TextView noteTitle;
+        TextView noteContent;
+        TextView noteDate;
+        View view;
+
+        public NoteViewHolder(@NonNull View itemView) {
+            super(itemView);
+            noteTitle = itemView.findViewById(R.id.txtTitles);
+            noteContent=itemView.findViewById(R.id.txtContent);
+            view= itemView;
+
+        }
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        noteAdapter.startListening();
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if (noteAdapter!=null)
+        noteAdapter.startListening();
     }
 }
 

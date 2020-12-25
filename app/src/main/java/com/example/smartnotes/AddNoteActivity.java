@@ -19,8 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +32,9 @@ public class AddNoteActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     EditText noteTitle;
     EditText noteContent;
+    TextView tVDateTime;
+    //long date;
+
 
     ProgressBar progressBarSave;
     @Override
@@ -41,6 +48,13 @@ public class AddNoteActivity extends AppCompatActivity {
         noteTitle=findViewById(R.id.editTxtAddNoteTitle);
         noteContent=findViewById(R.id.editTxtAddNoteContent);
         progressBarSave=findViewById(R.id.progressBar);
+        tVDateTime=findViewById(R.id.tVDate);
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
+        //String dateString = dateFormat.format(date);
+        String currentDateTime = dateFormat.format(new Date());
+        tVDateTime.setText(currentDateTime);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +62,7 @@ public class AddNoteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String stNoteTitle=noteTitle.getText().toString();
                 String stNoteContent=noteContent.getText().toString();
+                String stNoteDate=tVDateTime.getText().toString();
 
                 if (stNoteTitle.isEmpty()||stNoteContent.isEmpty()){
                     Toast.makeText(AddNoteActivity.this,"Can not Save. Note Fields Are Empty.",Toast.LENGTH_LONG).show();
@@ -59,6 +74,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 Map<String,Object> Note=new HashMap<>();
                 Note.put("Title",stNoteTitle);
                 Note.put("Content",stNoteContent);
+                Note.put("Date",stNoteDate);
 
                 focRef.set(Note).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
