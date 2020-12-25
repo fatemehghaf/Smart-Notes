@@ -6,6 +6,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,6 +39,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
 
     ProgressBar progressBarSave;
+    FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +53,9 @@ public class AddNoteActivity extends AppCompatActivity {
         progressBarSave=findViewById(R.id.progressBar);
         tVDateTime=findViewById(R.id.tVDate);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
-        //String dateString = dateFormat.format(date);
         String currentDateTime = dateFormat.format(new Date());
         tVDateTime.setText(currentDateTime);
 
@@ -70,7 +73,8 @@ public class AddNoteActivity extends AppCompatActivity {
                 }
                 progressBarSave.setVisibility(View.VISIBLE);
 
-                DocumentReference docRef=firestore.collection("Notes").document();
+
+                DocumentReference docRef=firestore.collection("Notes").document(firebaseUser.getUid()).collection("myNotes").document();
                 Map<String,Object> Note=new HashMap<>();
                 Note.put("Title",stNoteTitle);
                 Note.put("Content",stNoteContent);
@@ -79,7 +83,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 docRef.set(Note).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddNoteActivity.this,"Note Added Successfuly",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNoteActivity.this,"Note Added Successfully",Toast.LENGTH_SHORT).show();
                         onBackPressed();
 
                     }

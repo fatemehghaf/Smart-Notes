@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText rePass;
     Button SubmitSignup;
     TextView jumpLogin;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         rePass=findViewById(R.id.editTxtRePass);
         SubmitSignup=findViewById(R.id.signupBtn);
         jumpLogin=findViewById(R.id.tViewlogin);
+        progressBar =findViewById(R.id.progressBarLogin);
 
         databaseRef= FirebaseDatabase.getInstance().getReference();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -67,6 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String stRePass=rePass.getText().toString();
                 if (TextUtils.isEmpty(stID)||TextUtils.isEmpty(stEmail)||TextUtils.isEmpty(stPass)||TextUtils.isEmpty(stRePass)){
                     Toast.makeText(SignUpActivity.this,"Fill all fields!",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
                 else if (stPass.length()>8){
                     Toast.makeText(SignUpActivity.this,"The Password must be at least 8 Characters!",Toast.LENGTH_LONG).show();

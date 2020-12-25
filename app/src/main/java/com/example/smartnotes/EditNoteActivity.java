@@ -19,6 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,6 +37,8 @@ TextView tVEditDate;
 Toolbar toolbar;
 FirebaseFirestore firestore;
 ProgressBar progressBarSave;
+
+FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,7 @@ ProgressBar progressBarSave;
         tVEditDate.setText(currentDateTime);
 
         firestore=FirebaseFirestore.getInstance();
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
         FloatingActionButton fab = findViewById(R.id.fabEdit);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +82,7 @@ ProgressBar progressBarSave;
                 }
                 progressBarSave.setVisibility(View.VISIBLE);
 
-                DocumentReference docRef=firestore.collection("Notes").document(data.getStringExtra("noteId"));
+                DocumentReference docRef=firestore.collection("Notes").document(firebaseUser.getUid()).collection("myNotes").document(data.getStringExtra("noteId"));
                 Map<String,Object> Note=new HashMap<>();
                 Note.put("Title",stNoteTitle);
                 Note.put("Content",stNoteContent);

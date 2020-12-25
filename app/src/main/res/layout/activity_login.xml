@@ -79,4 +79,14 @@
         android:textAlignment="center"
         android:text="Create a New Account"
         android:textColor="@color/colorGrayDark" />
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="182dp"
+        android:layout_marginBottom="280dp"
+        android:visibility="invisible" />
 </RelativeLayout>

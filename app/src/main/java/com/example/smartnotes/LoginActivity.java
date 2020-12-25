@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginEmail;
     EditText loginPass;
     TextView jumpSignUp;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         loginEmail=findViewById(R.id.editTxtEmail2);
         loginPass=findViewById(R.id.editTxtPass2);
         jumpSignUp=findViewById(R.id.tViewJumpSignUp);
+        progressBar=findViewById(R.id.progressBarLogin);
 
         firebaseAuth2=FirebaseAuth.getInstance();
 
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 String stLoginPass=loginPass.getText().toString();
                 if (TextUtils.isEmpty(stLoginEmail) || TextUtils.isEmpty(stLoginPass)) {
                     Toast.makeText(LoginActivity.this,"You Have to Fill Both Fields",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
                 else
                     LoggingIn(stLoginEmail,stLoginPass);
@@ -63,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this,"Login Done",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
                     Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -73,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
