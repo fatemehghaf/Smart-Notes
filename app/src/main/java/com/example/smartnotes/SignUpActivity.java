@@ -103,26 +103,3 @@ public class SignUpActivity extends AppCompatActivity {
     });
     }
 }
-/*.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-        @Override
-        public void onSuccess(AuthResult authResult) {
-            HashMap<String, Object> data = new HashMap<>();
-            data.put("Username",ID);
-            data.put("User Email",Email);
-            data.put("User Pass",Pass);
-            databaseRef.child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>(){
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        progressDialog.dismiss();
-                        Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            });
-
-        }
-    });*/

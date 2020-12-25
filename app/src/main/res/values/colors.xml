@@ -12,8 +12,10 @@
     <color name="colorGrayLight">#b3b3b3</color>
     <color name="colorBlueMain">#66ccff</color>
     <color name="colorBlueMain2">#99ddff</color>
+    <color name="colorBlueSecond">#007399</color>
     <color name="colorBlueLight">#b3e6ff</color>
     <color name="colorBlueLighter">#e6f7ff</color>
+    <color name="colorBlueDark2">#006699</color>
     <color name="colorBlueDark">#004666</color>
     <color name="colorBlueDarker">#00344d</color>
 </resources>

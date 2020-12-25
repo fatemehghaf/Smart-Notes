@@ -70,13 +70,13 @@ public class AddNoteActivity extends AppCompatActivity {
                 }
                 progressBarSave.setVisibility(View.VISIBLE);
 
-                DocumentReference focRef=firestore.collection("Notes").document();
+                DocumentReference docRef=firestore.collection("Notes").document();
                 Map<String,Object> Note=new HashMap<>();
                 Note.put("Title",stNoteTitle);
                 Note.put("Content",stNoteContent);
                 Note.put("Date",stNoteDate);
 
-                focRef.set(Note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                docRef.set(Note).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddNoteActivity.this,"Note Added Successfuly",Toast.LENGTH_SHORT).show();

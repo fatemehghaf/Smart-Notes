@@ -19,6 +19,7 @@ public class noteDetailsActivity extends AppCompatActivity {
     TextView tVContent;
     TextView tVTitle;
     TextView tVDate;
+    Intent data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,7 @@ public class noteDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent data=getIntent();
+        data=getIntent();
 
         tVContent=findViewById(R.id.tVNoteDetailContent);
         tVTitle=findViewById(R.id.tVNoteDetailTitle);
@@ -39,13 +40,16 @@ public class noteDetailsActivity extends AppCompatActivity {
         tVTitle.setText(data.getStringExtra("Title"));
         tVDate.setText(data.getStringExtra("Date"));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fabEdit);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+                Intent intent=new Intent(view.getContext(),EditNoteActivity.class);
+                intent.putExtra("Title",data.getStringExtra("Title"));
+                intent.putExtra("Content",data.getStringExtra("Content"));
+                intent.putExtra("noteId",data.getStringExtra("noteId"));
+                startActivity(intent);
+                            }
         });
     }
 

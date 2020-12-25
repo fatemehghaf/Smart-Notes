@@ -7,7 +7,17 @@
     android:background="@color/colorWhiteSmoke"
     tools:context=".LoginActivity">
 
-
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="105dp"
+        android:fontFamily="sans-serif-black"
+        android:text="SMART NOTES"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlueLight"
+        android:textSize="28dp" />
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="212dp"
@@ -60,26 +70,13 @@
         android:textColorHint="@color/colorGrayLight" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="134dp"
-        android:layout_marginEnd="108dp"
-        android:text="Enter Your Email and Password :"
-        android:textColor="@color/colorBlueDark"
-        />
-
-    <TextView
         android:id="@+id/tViewJumpSignUp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="135dp"
         android:layout_marginBottom="263dp"
         android:fontFamily="sans-serif"
+        android:textAlignment="center"
         android:text="Create a New Account"
         android:textColor="@color/colorGrayDark" />
 </RelativeLayout>

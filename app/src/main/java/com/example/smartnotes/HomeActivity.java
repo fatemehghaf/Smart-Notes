@@ -11,20 +11,26 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -64,9 +70,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         noteAdapter=new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
             @Override
-            protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull final Note model) {
+            protected void onBindViewHolder(@NonNull NoteViewHolder holder, final int position, @NonNull final Note model) {
                 holder.noteTitle.setText(model.getTitle());
                 holder.noteContent.setText(model.getContent());
+                final String docId=noteAdapter.getSnapshots().getSnapshot(position).getId();
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -74,9 +81,52 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         intent.putExtra("Title", model.getTitle());
                         intent.putExtra("Content", model.getContent());
                         intent.putExtra("Date",model.getDate());
+                        intent.putExtra("noteId",docId);
                         v.getContext().startActivity(intent);
                     }
                 });
+
+                ImageView menuIcon=holder.view.findViewById(R.id.menuIcon);
+                menuIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        final String docID=noteAdapter.getSnapshots().getSnapshot(position).getId();
+                        PopupMenu popupMenu=new PopupMenu(v.getContext(),v);
+                        popupMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                Intent intent=new Intent(v.getContext(),EditNoteActivity.class);
+                                intent.putExtra("Title",model.getTitle());
+                                intent.putExtra("Content",model.getContent());
+                                intent.putExtra("noteId",docID);
+                                startActivity(intent);
+                                return false;
+                            }
+                        });
+                        popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                DocumentReference docRef=firestore.collection("Notes").document(docID);
+                                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(HomeActivity.this,"An Unexpected Error Has Occured Try Again",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return false;
+                            }
+                        });
+                        popupMenu.show();
+                    }
+                });
+
+
+
             }
             @NonNull
             @Override
@@ -105,6 +155,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.mAddNotes:
                 startActivity(new Intent(HomeActivity.this,AddNoteActivity.class));
                 break;
+            case R.id.mNotes:
+                startActivity(new Intent(this,HomeActivity.class));
+                break;
             default:
                 Toast.makeText(this,"Coming Soon...",Toast.LENGTH_SHORT).show();
 
@@ -129,7 +182,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public class NoteViewHolder extends RecyclerView.ViewHolder{
         TextView noteTitle;
         TextView noteContent;
-        TextView noteDate;
         View view;
 
         public NoteViewHolder(@NonNull View itemView) {
