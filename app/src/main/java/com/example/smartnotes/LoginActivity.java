@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
                 String stLoginPass=loginPass.getText().toString();
                 if (TextUtils.isEmpty(stLoginEmail) || TextUtils.isEmpty(stLoginPass)) {
                     Toast.makeText(LoginActivity.this,"You Have to Fill Both Fields",Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.VISIBLE);
                 }
                 else
                     LoggingIn(stLoginEmail,stLoginPass);
@@ -68,17 +67,16 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this,"Login Done",Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.VISIBLE);
-                    Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    //Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                     finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(LoginActivity.this,"Error: "+ e.getMessage(),Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

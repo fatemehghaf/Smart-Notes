@@ -12,11 +12,16 @@
         <item name="colorPrimary">@color/colorBlueLight</item>
         <item name="colorPrimaryDark">@color/colorBlueMain</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:itemBackground">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlueDark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="progressColor" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorControlActivated">@android:color/holo_orange_dark</item>
+    </style>
 
 
 </resources>

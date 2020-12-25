@@ -93,6 +93,7 @@ FirebaseUser firebaseUser;
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditNoteActivity.this,"Note Added Successfuly",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        overridePendingTransition(R.anim.anim_slide1,R.anim.anim_slide2);
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {

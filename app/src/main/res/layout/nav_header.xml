@@ -15,12 +15,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
-            android:layout_marginEnd="140dp"
             android:fontFamily="@font/abril_fatface"
             android:text="Smart Notes"
             android:textColor="@color/colorWhite"
             android:textSize="40dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -28,12 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="108dp"
-            android:layout_marginEnd="144dp"
             android:fontFamily="@font/acme"
             android:text="Your Free Private Notebook"
             android:textColor="@color/colorWhite"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="176dp"
-            android:layout_marginEnd="128dp"
+            android:layout_marginEnd="124dp"
             android:drawableStart="@drawable/ic_email2"
             android:drawablePadding="5dp"
             android:fontFamily="sans-serif-medium"

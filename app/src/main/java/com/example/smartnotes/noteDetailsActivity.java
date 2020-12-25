@@ -49,6 +49,7 @@ public class noteDetailsActivity extends AppCompatActivity {
                 intent.putExtra("Content",data.getStringExtra("Content"));
                 intent.putExtra("noteId",data.getStringExtra("noteId"));
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide1,R.anim.anim_slide2);
                             }
         });
     }

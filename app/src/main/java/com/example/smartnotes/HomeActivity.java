@@ -115,7 +115,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                DocumentReference docRef=firestore.collection("Notes").document(docID);
+                                DocumentReference docRef=firestore.collection("Notes").document(firebaseUser.getUid()).collection("myNotes").document(docID);
                                 docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -154,6 +154,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this,AddNoteActivity.class));
+
             }
         });
     }
@@ -172,7 +173,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 checkUser();
                 break;
             default:
-                Toast.makeText(this,"Coming Soon...",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Does not Configured",Toast.LENGTH_SHORT).show();
 
         }
         return false;

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -47,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
         rePass=findViewById(R.id.editTxtRePass);
         SubmitSignup=findViewById(R.id.signupBtn);
         jumpLogin=findViewById(R.id.tViewlogin);
-        progressBar =findViewById(R.id.progressBarLogin);
+        progressBar =findViewById(R.id.progressBarSign);
 
         databaseRef= FirebaseDatabase.getInstance().getReference();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -69,16 +70,16 @@ public class SignUpActivity extends AppCompatActivity {
                 String stPass=Pass.getText().toString();
                 String stRePass=rePass.getText().toString();
                 if (TextUtils.isEmpty(stID)||TextUtils.isEmpty(stEmail)||TextUtils.isEmpty(stPass)||TextUtils.isEmpty(stRePass)){
-                    Toast.makeText(SignUpActivity.this,"Fill all fields!",Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(SignUpActivity.this,"Fields Are Required!",Toast.LENGTH_LONG).show();
                 }
                 else if (stPass.length()>8){
-                    Toast.makeText(SignUpActivity.this,"The Password must be at least 8 Characters!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this,"Password must be at least 8 Characters!",Toast.LENGTH_LONG).show();
                 }
-                /*else if(stPass!=stRePass){
-                    Toast.makeText(SignUpActivity.this,"The Confirm Password is not same as Password",Toast.LENGTH_LONG).show();
-                }*/
-                else SigningUp(stID,stEmail,stPass);
+                else if(!stRePass.equals(stPass)){
+                    rePass.setError("Password Does Not Match");
+                }
+                else
+                SigningUp(stID,stEmail,stPass);
             }
         });
     }
@@ -90,7 +91,27 @@ public class SignUpActivity extends AppCompatActivity {
             data.put("Username",ID);
             data.put("User Email",Email);
             data.put("User Pass",Pass);
-            databaseRef.child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>(){
+            databaseRef.child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
+                    Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignUpActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+        });
+        }
+    });
+    }
+}
+/*.addOnCompleteListener(new OnCompleteListener<Void>(){
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -102,8 +123,4 @@ public class SignUpActivity extends AppCompatActivity {
                         finish();
                     }
                 }
-            });
-        }
-    });
-    }
-}
+            });*/
